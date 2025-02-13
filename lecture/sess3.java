@@ -1,3 +1,4 @@
+package lecture;
 import java.util.*;
 
 class sess3 {
