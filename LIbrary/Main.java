@@ -3,7 +3,7 @@ public class Main {
         Author author1 = new Author("James Gosling", "Creator of the Java programming language.");
         Author author2 = new Author("Robert C. Martin", "Known for his works on software craftsmanship.");
 
-        Book book1 = new Book("Java Programming", "123456789", author1);
+        Book book1 = new Book("Java Programming", "23456789", author1);
         Book book2 = new Book("Clean Code", "987654321", author2);
 
         Library library = new Library();
