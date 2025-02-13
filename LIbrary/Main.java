@@ -1,6 +1,41 @@
-package Library;
 import java.util.ArrayList;
 import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Membuat penulis
+        Author author1 = new Author("James Gosling", "Creator of the Java programming language.");
+        Author author2 = new Author("Robert C. Martin", "Known for his works on software craftsmanship.");
+
+        // Membuat buku
+        Book book1 = new Book("Java Programming", "123456789", author1);
+        Book book2 = new Book("Clean Code", "987654321", author2);
+
+        // Membuat perpustakaan
+        Library library = new Library();
+        library.addBook(book1);
+        library.addBook(book2);
+
+        // Membuat peminjam
+        Borrower borrower = new Borrower("Alice");
+
+        // Peminjaman buku
+        library.borrowBook(borrower, book1);
+        library.borrowBook(borrower, book2);
+
+        // Menampilkan buku yang dipinjam
+        borrower.displayBorrowedBooks();
+
+        // Mengembalikan buku
+        library.returnBook(borrower, book1);
+
+        // Menampilkan kembali daftar buku yang dipinjam
+        borrower.displayBorrowedBooks();
+
+        // Menampilkan buku di perpustakaan
+        library.displayLibraryBooks();
+    }
+}
 
 class Author {
     private String name;
@@ -60,43 +95,8 @@ class Book {
     @Override
     public String toString() {
         return "Title: " + title + "\nISBN: " + isbn + "\nAuthor: " + author.getName() +
-                "\nBio: " + author.getBio() + "\nStatus: " + (isBorrowed ? "Borrowed" : "Available") + "\n";
-    }
-}
-
-class Library {
-    private List<Book> books = new ArrayList<>();
-
-    public void addBook(Book book) {
-        books.add(book);
-        System.out.println("[INFO] Book added: " + book.getTitle());
-    }
-
-    public void borrowBook(Borrower borrower, Book book) {
-        if (books.contains(book) && !book.isBorrowed()) {
-            book.borrow();
-            borrower.borrowBook(book);
-            System.out.println("[INFO] " + borrower.getName() + " borrowed: " + book.getTitle());
-        } else {
-            System.out.println("[WARNING] " + book.getTitle() + " is not available.");
-        }
-    }
-
-    public void returnBook(Borrower borrower, Book book) {
-        if (borrower.hasBorrowed(book)) {
-            book.returnBook();
-            borrower.returnBook(book);
-            System.out.println("[INFO] " + borrower.getName() + " returned: " + book.getTitle());
-        } else {
-            System.out.println("[ERROR] " + borrower.getName() + " did not borrow " + book.getTitle());
-        }
-    }
-
-    public void displayLibraryBooks() {
-        System.out.println("\n[INFO] Library Collection:");
-        for (Book book : books) {
-            System.out.println(book);
-        }
+                "\nBio: " + author.getBio() + "\nStatus: " + (isBorrowed ? "Borrowed" : "Available") +
+                "\n-------------------------";
     }
 }
 
@@ -136,42 +136,42 @@ class Borrower {
     }
 }
 
-public class Main {
-    public Main() {
-        // Membuat penulis
-        Author author1 = new Author("James Gosling", "Creator of the Java programming language.");
-        Author author2 = new Author("Robert C. Martin", "Known for his works on software craftsmanship.");
+class Library {
+    private List<Book> books = new ArrayList<>();
 
-        // Membuat buku
-        Book book1 = new Book("Java Programming", "123456789", author1);
-        Book book2 = new Book("Clean Code", "987654321", author2);
-
-        // Membuat perpustakaan
-        Library library = new Library();
-        library.addBook(book1);
-        library.addBook(book2);
-
-        // Membuat peminjam
-        Borrower borrower = new Borrower("Alice");
-
-        // Peminjaman buku
-        library.borrowBook(borrower, book1);
-        library.borrowBook(borrower, book2);
-
-        // Menampilkan buku yang dipinjam
-        borrower.displayBorrowedBooks();
-
-        // Mengembalikan buku
-        library.returnBook(borrower, book1);
-
-        // Menampilkan kembali daftar buku yang dipinjam
-        borrower.displayBorrowedBooks();
-
-        // Menampilkan buku di perpustakaan
-        library.displayLibraryBooks();
+    public void addBook(Book book) {
+        books.add(book);
+        System.out.println("[INFO] Book added to library: " + book.getTitle());
+        System.out.println("-------------------------");
     }
 
-    public static void main(String[] args) {
-        new Main();
+    public void borrowBook(Borrower borrower, Book book) {
+        if (books.contains(book) && !book.isBorrowed()) {
+            book.borrow();
+            borrower.borrowBook(book);
+            System.out.println("[INFO] " + borrower.getName() + " borrowed: " + book.getTitle());
+        } else {
+            System.out.println("[WARNING] " + book.getTitle() + " is not available.");
+        }
+        System.out.println("-------------------------");
+    }
+
+    public void returnBook(Borrower borrower, Book book) {
+        if (borrower.hasBorrowed(book)) {
+            book.returnBook();
+            borrower.returnBook(book);
+            System.out.println("[INFO] " + borrower.getName() + " returned: " + book.getTitle());
+        } else {
+            System.out.println("[ERROR] " + borrower.getName() + " did not borrow " + book.getTitle());
+        }
+        System.out.println("-------------------------");
+    }
+
+    public void displayLibraryBooks() {
+        System.out.println("\n[INFO] Books in Library:");
+        System.out.println("-------------------------");
+        for (Book book : books) {
+            System.out.println(book);
+        }
     }
 }
