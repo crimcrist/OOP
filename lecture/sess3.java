@@ -16,5 +16,3 @@ class sess3 {
         new sess3();
     }
 }
-
-// blallbalb
